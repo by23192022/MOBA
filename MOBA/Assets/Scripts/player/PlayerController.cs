@@ -1,3 +1,5 @@
+//仅挂载在Player身上，用于Player的移动控制
+
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
@@ -9,46 +11,21 @@ public class PlayerController : MonoBehaviour
 
     private CameraFollow cameraController;
 
-    private Animator animator;
-    private float lastH;        //用于优化
-    private float lastV;
-
+    private Vector3 lastPosition;
+    private Vector3 currentVelocity; 	// Vector3 类型
+    public float currentSpeed;      	// float 类型存储速度标量值
 
     void Start()
     {
         cameraController = Camera.main.GetComponent<CameraFollow>();
-        animator = GetComponent<Animator>();        // 获取Animator组件
-
+        lastPosition = transform.position; // 初始化上一帧位置，避免第一帧计算出错
     }
 
     void Update()
     {
         MoveControl();
-        AniControl();
-
+        CalculateSpeed(); // 计算速度
     }
-
-    void AniControl()
-    {
-        float currentSpeed = GetComponent<PlayerController>().moveSpeed; // 获取实际速度
-
-        //Debug.Log($"当前Speed参数值: {currentSpeed}");     // 调试输出确认数值
-
-        if (isMoving && currentSpeed > 0)
-        {
-            //同步参数到动画系统
-            animator.SetBool("isIdle", false);      //需要
-            animator.SetBool("isMove", true);       //Move
-        }
-        else
-        {
-            animator.SetBool("isMove", false);      //需要
-            animator.SetBool("isIdle", true);       //Idle
-        }
-        
-
-    }
-
 
     void MoveControl()
     {
@@ -106,28 +83,24 @@ public class PlayerController : MonoBehaviour
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
-        //记录isMoving的值，用于AniControl()
-        float currentH = Input.GetAxisRaw("Horizontal");
-        float currentV = Input.GetAxisRaw("Vertical");
-        // 检测任意方向键按下
-        if ((currentH != 0 || currentV != 0) && (lastH == 0 && lastV == 0))
-        {
-            isMoving = true;
-            Debug.Log("任意方向键按下");
-        }
-        // 检测所有方向键松开
-        if (currentH == 0 && currentV == 0 && (lastH != 0 || lastV != 0))
-        {
-            isMoving = false;
-            Debug.Log("所有方向键松开");
-        }
-        // 记录当前帧值
-        lastH = currentH;
-        lastV = currentV;
-
         Vector3 moveDir = transform.forward * vertical + transform.right * horizontal;
         moveDir *= moveSpeed * Time.deltaTime;
         transform.Translate(moveDir, Space.World);
+    }
+
+    void CalculateSpeed()
+    {
+        // 计算位移差（Vector3）
+        Vector3 displacement = transform.position - lastPosition;
+        currentVelocity = displacement / Time.deltaTime;
+
+        // 计算水平速度标量值（忽略Y轴高度变化）
+        currentSpeed = new Vector3(currentVelocity.x, 0, currentVelocity.z).magnitude;
+
+        // 记录上一帧位置
+        lastPosition = transform.position;
+
+        //Debug.Log($"1)当前速度: {currentSpeed}");
     }
 
 }
