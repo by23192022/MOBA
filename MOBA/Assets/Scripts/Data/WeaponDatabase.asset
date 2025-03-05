@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59d97b98cf5031843b638bd6017a744a, type: 3}
+  m_Name: WeaponDatabase
+  m_EditorClassIdentifier: 
+  weapons:
+  - name: Default
+    category: 0
+    modelPrefab: {fileID: 0}
+    damage: 0
+    range: 0
+    attackSpeed: 0
+  - name: AAssaultRifle_01
+    category: 1
+    modelPrefab: {fileID: 2548881644107697489, guid: 3844e5d7dd96e864e9c357117a4bd6ac,
+      type: 3}
+    damage: 10
+    range: 100
+    attackSpeed: 0
+  - name: SSword
+    category: 0
+    modelPrefab: {fileID: 8088054727617161557, guid: 51eebbcdaec977b4e81c78d6339489fa,
+      type: 3}
+    damage: 20
+    range: 0
+    attackSpeed: 0

@@ -13,7 +13,8 @@ public class SimpleCrosshair : MonoBehaviour
 
     void OnGUI()
     {
-        if (!cameraController.isTP)
+        if (!cameraController.isTP && 
+            cameraController.CurrentWeapon.category == WeaponCategory.Ranged )
         {
             // 计算准星位置（屏幕中心）
             float x = (Screen.width - crosshairSize) * 0.5f;

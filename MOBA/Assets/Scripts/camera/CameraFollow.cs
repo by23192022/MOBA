@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System; // 添加System命名空间以使用Action
 
 public class CameraFollow : MonoBehaviour
 {
@@ -14,12 +15,50 @@ public class CameraFollow : MonoBehaviour
     public float sensitivity = 100f;  // 鼠标灵敏度
     private float xRotation = 0f;      // 垂直旋转角度
 
+    [SerializeField] private WeaponDB weaponDB; // 拖入武器数据库
+    public Weapon CurrentWeapon;
+    public event Action OnWeaponChanged; // 声明静态事件（仅一个player）
+
     [Header("角色模型")]
-    public GameObject TPModel;  // 第三人称全身模型
+    public GameObject TPModel;  	// 第三人称全身模型
     [Header("第一人称武器")]
-    public GameObject FPModel;   // 第一人称枪械模型
-    //  [Header("准星")]
-    //准星脚本直接挂载在相机上
+    //public GameObject FPModel;   	// 第一人称枪械模型
+    [SerializeField] private GameObject _fpModel; // 私有字段
+    public GameObject FPModel 	//  属性封装
+    {
+        get => _fpModel;
+        set
+        {
+            //防御式编程
+            if (value != null && !value.CompareTag("FPModel"))
+            {
+                Debug.LogError("只能设置FPModel类型的模型！");
+                return;
+            }
+            if (_fpModel == value) return; // 避免重复更新
+            //Debug.Log($"武器从 {_fpModel?.name} 切换为 {value?.name}");
+
+            _fpModel = value;  // 赋值操作
+            UpdateWeapon(); // 触发更新逻辑
+        }
+    }
+
+    // 更新当前武器
+    private void UpdateWeapon()
+    {
+        string weaponName = _fpModel ? _fpModel.name : "Default";
+        CurrentWeapon = weaponDB.GetWeapon(weaponName);
+        Debug.Log($"1)武器已更新: {CurrentWeapon.name}"); 
+
+        OnWeaponChanged?.Invoke();
+    }
+
+    // 兼容：在Inspector面板值变更时触发（编辑器模式）
+    private void OnValidate()
+    {
+        if (!Application.isPlaying) 
+            UpdateWeapon();
+    }
 
     IEnumerator  Start()
     {
@@ -108,7 +147,7 @@ public class CameraFollow : MonoBehaviour
         }
 
         // 查找第一人称武器
-        FPModel = GameObject.FindWithTag("FPModel");
+        FPModel = GameObject.FindWithTag("FPModel"); // 属性赋值触发执行set{}
         if(FPModel == null)
         {
             Debug.LogError("未找到武器对象，请确保场景中存在'FPModel'标签的对象");
@@ -117,12 +156,19 @@ public class CameraFollow : MonoBehaviour
 
     void setFPView()
     {
-        // 把FPModel设置为当前相机（脚本挂载的物体）的子物体
-        FPModel.transform.SetParent(transform, false);
-        // 设置FPModel相对于相机的坐标、旋转、缩放
-        FPModel.transform.localPosition = new Vector3(0.054f, -0.08f, -0.034f);
-        FPModel.transform.localEulerAngles = new Vector3(0f, 83f, 0f);
-        FPModel.transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
+        if(CurrentWeapon.name == "AAssaultRifle_01")
+        {
+            // 把FPModel设置为当前相机（脚本挂载的物体）的子物体
+            FPModel.transform.SetParent(transform, false);
+            // 设置FPModel相对于相机的坐标、旋转、缩放
+            FPModel.transform.localPosition = new Vector3(0.054f, -0.08f, -0.034f);
+            FPModel.transform.localEulerAngles = new Vector3(0f, 83f, 0f);
+            FPModel.transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
+        }
+        else if(CurrentWeapon.name  == "SSword")
+        {
+                Debug.Log("未设置Sword的第一人称视角");
+        }
 
         Camera cam = GetComponent<Camera>();  // 直接获取当前物体上的Camera组件
         cam.nearClipPlane = 0.05f; 	// 设置近裁剪平面
