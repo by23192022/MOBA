@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 3880278540165621916}
   - component: {fileID: 260159229906268529}
   - component: {fileID: 764596470015413751}
-  - component: {fileID: 6818230740911426464}
+  - component: {fileID: -426153181493759160}
+  - component: {fileID: 6107870091069421128}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -153,7 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   crosshairTexture: {fileID: 2800000, guid: e95361c4fbbe7be46a8854f83a57af38, type: 3}
   crosshairSize: 20
---- !u!114 &6818230740911426464
+--- !u!114 &-426153181493759160
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -167,11 +168,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   smoothSpeed: 5
-  offset: {x: 0, y: 8, z: -10}
+  tpOffset: {x: 0, y: 8, z: -10}
+  fpOffset: {x: 0, y: 1.6, z: 0}
   viewSwitchKey: 118
   isTP: 1
-  offset2: {x: 0, y: 1.6, z: 0}
   sensitivity: 100
+--- !u!114 &6107870091069421128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2126596426405990354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a5876d02788cf44e9b7928eb23018b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   weaponDB: {fileID: 11400000, guid: 96c36a4e9f79a5e43af4939a8131efcb, type: 2}
   CurrentWeapon:
     name: Default

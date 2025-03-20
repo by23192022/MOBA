@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     public float rotationSpeed = 10f; // 转向速度
     private bool isMoving = false;
 
-    private CameraFollow cameraController;
+    private CameraFollow cameraFollow;
 
     private Vector3 lastPosition;
     private Vector3 currentVelocity; 	// Vector3 类型
@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        cameraController = Camera.main.GetComponent<CameraFollow>();
+        cameraFollow = Camera.main.GetComponent<CameraFollow>();
         lastPosition = transform.position; // 初始化上一帧位置，避免第一帧计算出错
     }
 
@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
 
     void MoveControl()
     {
-        if (cameraController.isTP)
+        if (cameraFollow.isTP)
         {
             TP();
         }

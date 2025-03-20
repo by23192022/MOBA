@@ -9,6 +9,7 @@ public class Attacking : MonoBehaviour
 
     private Camera mainCamera;
     private CameraFollow cameraFollow;
+    private ViewAndWeaponConfig config;
 
     public static event Action OnAttack01; // 声明静态事件（仅一个player）
 
@@ -19,15 +20,17 @@ public class Attacking : MonoBehaviour
     {
         mainCamera = Camera.main;
         cameraFollow = mainCamera.GetComponent<CameraFollow>();
+        config = mainCamera.GetComponent<ViewAndWeaponConfig>();
+
         // 获取初始武器
-        currentWeapon = cameraFollow.CurrentWeapon; 
+        currentWeapon = config.CurrentWeapon; 
         // 订阅武器变更
-        cameraFollow.OnWeaponChanged += UpdateWeapon;
+        config.OnWeaponChanged += UpdateWeapon;
     }
 
     private void UpdateWeapon()
     {
-        currentWeapon = cameraFollow.CurrentWeapon;
+        currentWeapon = config.CurrentWeapon;
         Debug.Log($"2)武器更新为：{currentWeapon.name}");
 
         damageValue = currentWeapon.damage;
@@ -36,9 +39,9 @@ public class Attacking : MonoBehaviour
 
     void OnDisable()
     {
-        if (cameraFollow != null)
+        if (config != null)
         {
-            cameraFollow.OnWeaponChanged -= UpdateWeapon;
+            config.OnWeaponChanged -= UpdateWeapon;
         }
     }
 

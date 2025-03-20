@@ -12,7 +12,7 @@ public class AniController : MonoBehaviour
     private NavMeshAgent navAgent; // 导航代理引用
     private HealthController healthController; // 添加本地HealthController组件引用
     private Camera mainCamera;
-    private CameraFollow cameraFollow;
+    private ViewAndWeaponConfig config;
     private PlayerController playerController; 
 
     private void OnEnable()
@@ -29,9 +29,9 @@ public class AniController : MonoBehaviour
         healthController.OnRecover += PlayOnRecoverAnimation;
      
         // 如果是玩家才订阅攻击事件（根据需求调整）
-        if (gameObject.CompareTag("Player") && cameraFollow!= null)
+        if (gameObject.CompareTag("Player") && config!= null)
         {
-                cameraFollow.OnWeaponChanged += HandleWeaponChange;
+                config.OnWeaponChanged += HandleWeaponChange;
         }
 
     }
@@ -42,14 +42,16 @@ public class AniController : MonoBehaviour
         // 每次武器变更时强制清理旧订阅（避免事件内存泄漏问题）
         Attacking.OnAttack01 -= PlayAttack01Animation;
 
-        // 判断武器名称
-        if (cameraFollow.CurrentWeapon.name == "SSword")
+        // 判断武器名称\类型
+        //if (config.CurrentWeapon.name == "SSword")
+        if (config.CurrentWeapon.category == WeaponCategory.Melee)
         {
-                Attacking.OnAttack01 += PlayAttack01Animation;
+            Attacking.OnAttack01 += PlayAttack01Animation;
         }
-        else if (cameraFollow.CurrentWeapon.name == "AAssaultRifle_01")
+        //else if (config.CurrentWeapon.name == "AAssaultRifle_01")
+        else if (config.CurrentWeapon.category == WeaponCategory.Ranged)
         {
-                Debug.Log("暂未配置射击动画");
+            Debug.Log("播放：远程武器的攻击动画");
         }
     }
 
@@ -65,9 +67,9 @@ public class AniController : MonoBehaviour
             healthController.OnRecover -= PlayOnRecoverAnimation;
         }
 
-        if (cameraFollow!= null)
+        if (config!= null)
         {
-            cameraFollow.OnWeaponChanged -= HandleWeaponChange;
+            config.OnWeaponChanged -= HandleWeaponChange;
         }
 
         // 对象禁用时双重保险取消订阅
@@ -87,7 +89,7 @@ public class AniController : MonoBehaviour
 
         // 获取CameraFollow组件
         mainCamera = Camera.main;
-        cameraFollow = mainCamera.GetComponent<CameraFollow>();
+        config = mainCamera.GetComponent<ViewAndWeaponConfig>();
 
         playerController = GetComponent<PlayerController>();
         navAgent = GetComponent<NavMeshAgent>(); // 获取导航组件
