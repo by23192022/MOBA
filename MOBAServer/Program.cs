@@ -10,7 +10,8 @@ namespace MOBAServer
     {
         static void Main(string[] args)
         {
-            if (!DbManager.Connect("game", "127.0.0.1", 3306, "root", ""))
+            //                    数据库名     ip       端口  数据库用户名和密码
+            if (!DbManager.Connect("game", "127.0.0.1", 3306, "root", "123456"))
             {
                 return;
             }
