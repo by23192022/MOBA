@@ -3,29 +3,53 @@
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : BaseHuman
 {
-    public float moveSpeed = 5f;     // 恒定移动速度
-    public float rotationSpeed = 10f; // 转向速度
     private bool isMoving = false;
 
+    private Camera mainCamera;
     private CameraFollow cameraFollow;
 
-    private Vector3 lastPosition;
-    private Vector3 currentVelocity; 	// Vector3 类型
-    public float currentSpeed;      	// float 类型存储速度标量值
+    //上⼀次发送同步信息的时间
+    private float lastSendSyncTime = 0;
+    //同步帧率
+    public static float syncInterval = 0.1f; 
+    //public static float syncInterval = 0.3f; 
+
 
     void Start()
     {
-        cameraFollow = Camera.main.GetComponent<CameraFollow>();
-        lastPosition = transform.position; // 初始化上一帧位置，避免第一帧计算出错
+        mainCamera = Camera.main;
+        cameraFollow = mainCamera.GetComponent<CameraFollow>();
     }
 
-    void Update()
+    protected override void Update()
     {
+        base.Update();		// 调用基类逻辑
         MoveControl();
-        CalculateSpeed(); // 计算速度
+
+        SyncUpdate();        	//同步位置
     }
+
+
+    //发送同步信息
+    public void SyncUpdate(){
+        //时间间隔判断
+        if(Time.time - lastSendSyncTime < syncInterval){
+            return;
+        }
+        lastSendSyncTime = Time.time;
+        //发送同步协议
+        MsgSyncHuman msg = new MsgSyncHuman();
+        msg.x = transform.position.x;
+        msg.y = transform.position.y;
+        msg.z = transform.position.z;
+        msg.ex = transform.eulerAngles.x;
+        msg.ey = transform.eulerAngles.y;
+        msg.ez = transform.eulerAngles.z;
+        NetManager.Send(msg);
+    }
+
 
     void MoveControl()
     {
@@ -54,8 +78,8 @@ public class PlayerController : MonoBehaviour
             float horizontal = delta.x / (Screen.width / 2f);
             float vertical = delta.y / (Screen.height / 2f);
 
-            Vector3 moveDir = Camera.main.transform.right * horizontal
-                            + Camera.main.transform.forward * vertical;
+            Vector3 moveDir = mainCamera.transform.right * horizontal
+                            + mainCamera.transform.forward * vertical;
             moveDir.y = 0;
 
             if (moveDir.magnitude > 0.1f)
@@ -73,6 +97,7 @@ public class PlayerController : MonoBehaviour
                 transform.Translate(
                     Vector3.forward * moveSpeed * Time.deltaTime,
                     Space.Self // 使用自身坐标系
+                    //Space.World // 世界坐标系
                 );
             }
         }
@@ -86,21 +111,6 @@ public class PlayerController : MonoBehaviour
         Vector3 moveDir = transform.forward * vertical + transform.right * horizontal;
         moveDir *= moveSpeed * Time.deltaTime;
         transform.Translate(moveDir, Space.World);
-    }
-
-    void CalculateSpeed()
-    {
-        // 计算位移差（Vector3）
-        Vector3 displacement = transform.position - lastPosition;
-        currentVelocity = displacement / Time.deltaTime;
-
-        // 计算水平速度标量值（忽略Y轴高度变化）
-        currentSpeed = new Vector3(currentVelocity.x, 0, currentVelocity.z).magnitude;
-
-        // 记录上一帧位置
-        lastPosition = transform.position;
-
-        //Debug.Log($"1)当前速度: {currentSpeed}");
     }
 
 }

@@ -18,4 +18,8 @@ public class Weapon
     public int range; 			//（远程武器）射程
 
     public float attackSpeed;
+
+    public ParticleSystem muzzleFlash; 	//（远程武器）枪口特效预制体
+    public LineRenderer bulletTrail;	//（远程武器）射线特效预制体
+    public ParticleSystem hitEffect;	//击中特效
 }

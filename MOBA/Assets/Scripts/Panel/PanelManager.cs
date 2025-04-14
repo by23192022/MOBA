@@ -63,4 +63,11 @@ public static class PanelManager{
 		GameObject.Destroy(panel.skin);
 		Component.Destroy(panel);
 	}
+
+	//获取面板
+	public static T GetPanel<T>() where T : BasePanel{
+		string name = typeof(T).ToString();
+		return panels.ContainsKey(name) ? panels[name] as T : null;
+	}
+
 }

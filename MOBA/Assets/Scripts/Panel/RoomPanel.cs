@@ -40,7 +40,7 @@ public class RoomPanel : BasePanel {
 		//发送查询
 		MsgGetRoomInfo msg = new MsgGetRoomInfo();
 		NetManager.Send(msg);
-        		Debug.Log("执行发送MsgGetRoomInfo");
+        		//Debug.Log("执行发送MsgGetRoomInfo");
 	}
 
 	//关闭
@@ -58,7 +58,7 @@ public class RoomPanel : BasePanel {
 	//收到玩家列表协议
 	public void OnMsgGetRoomInfo (MsgBase msgBase) {
 		MsgGetRoomInfo msg = (MsgGetRoomInfo)msgBase;
-		Debug.Log("收到OnMsgGetRoomInfo");
+		//Debug.Log("收到OnMsgGetRoomInfo");
 
 		//清除玩家列表
 		for(int i = content.childCount-1; i >= 0 ; i--){
