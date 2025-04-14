@@ -14,7 +14,7 @@ public class ViewConfig : MonoBehaviour
     private const string weaponParentPath = "root/pelvis/Weapon";
 
     private Camera mainCamera;
-    private SimpleCrosshair s;
+
 
     //IEnumerator Start()
     void Start()
@@ -23,7 +23,6 @@ public class ViewConfig : MonoBehaviour
         //yield return null;
         cameraFollow = GetComponent<CameraFollow>();
         mainCamera = Camera.main;
-        s = mainCamera.GetComponent<SimpleCrosshair>();
     }
 
     ////在角色模型和ctrl武器模型生成后调用
@@ -72,8 +71,7 @@ public class ViewConfig : MonoBehaviour
         Camera cam = GetComponent<Camera>();    // 直接获取当前物体上的Camera组件
         cam.nearClipPlane = 0.03f;          	// 设置近裁剪平面
 
-        // 设置准星
-        s.Init(CurrentWeapon);
+        // 准星
     }
 
 

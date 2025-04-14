@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 260159229906268529}
   - component: {fileID: 328617774155925891}
   - component: {fileID: 902439072509269521}
-  - component: {fileID: 7819265746267664571}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -174,20 +173,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TPModel: {fileID: 0}
   FPModel: {fileID: 0}
---- !u!114 &7819265746267664571
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2126596426405990354}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb8f1911d8deb3545955948b856f2685, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  crosshairTexture: {fileID: 2800000, guid: e95361c4fbbe7be46a8854f83a57af38, type: 3}
-  crosshairSize: 20
 --- !u!1001 &4785994925166393140
 PrefabInstance:
   m_ObjectHideFlags: 0

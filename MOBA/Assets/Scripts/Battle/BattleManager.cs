@@ -8,6 +8,7 @@ public class BattleManager {
 	public static string HumanPath1 = "Perfabs/TPmodel/syncPlayerDogPBR";
 	public static string HumanPath2 = "Perfabs/Enemy/EnemyDogPolyart";
 	private static WeaponDB weaponDB; // 武器数据
+	private static Weapon defaultWeapon; // 默认武器
 
 	//战场中的角色
 	public static Dictionary<string, BaseHuman> humans = new Dictionary<string, BaseHuman>();
@@ -24,6 +25,8 @@ public class BattleManager {
 		NetManager.AddMsgListener("MsgHit", OnMsgHit);
 
 		weaponDB = Resources.Load<WeaponDB>("Data/WeaponDatabase"); // 加载资源
+
+		defaultWeapon = weaponDB.GetWeapon("AAssaultRifle_01");	//默认武器
 	}
 
 	//添加角色
@@ -85,7 +88,7 @@ public class BattleManager {
 		PanelManager.Close("ResultPanel");
 
 		//打开界面（用于显示ctrl角色血条）
-		PanelManager.Open<BattlePanel>();
+		PanelManager.Open<BattlePanel>(defaultWeapon);
 
 		//产生角色，分两次生成
 		// 第一次生成自己（确保GameMain.camp被赋值）
@@ -169,7 +172,6 @@ public class BattleManager {
 	//产生武器
 	public static void GenerateWeapon(GameObject humanObj){
 		Camera mainCamera = Camera.main;
-		string weaponName = "AAssaultRifle_01";	/////////默认武器
 
 		BaseHuman bh = humanObj.GetComponent<BaseHuman>(); 
 		bh.InitWeaponDB(weaponDB);	//初始化所有的BaseHuman.weaponDB
@@ -177,20 +179,19 @@ public class BattleManager {
 
 		if(humanObj.tag == "Player"){
 			// 根据武器名称加载预制体
-        			GameObject weaponPrefab = ResManager.LoadPrefab($"Perfabs/Weapon/{weaponName}");
+        			GameObject weaponPrefab = ResManager.LoadPrefab($"Perfabs/Weapon/{defaultWeapon.name}");
 			// 实例化对象
 			GameObject weaponObj = UnityEngine.Object.Instantiate(weaponPrefab) as GameObject;
 			weaponObj.tag = "FPModel";		//ctrl的武器标签改为FPModel
 			
 			////需要在角色模型和ctrl武器模型生成后调用
 			Attacking ac = humanObj.GetComponent<Attacking>(); 
-			ac.UpdateWeapon(weaponName);
+			ac.UpdateWeapon(defaultWeapon.name);
 		}
 		else if(humanObj.tag == "SyncHuman"){
 			////调用了ViewConfig脚本里的setTPView方法，生成武器
 			ViewConfig config = mainCamera.GetComponent<ViewConfig>(); 
-			Weapon weapon = weaponDB.GetWeapon(weaponName);
-			config.setTPView(humanObj, weapon);
+			config.setTPView(humanObj, defaultWeapon);
 		}
 
 	}

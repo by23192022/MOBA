@@ -32,7 +32,8 @@ public class Attacking : MonoBehaviour
     ////需要在角色模型和ctrl武器模型生成后调用
     public void UpdateWeapon(string weaponName)
     {
-        Init();
+        if( weaponDB == null )		//使得Init()只被调用一次即可
+            Init();
 
         if (weaponDB == null) Debug.Log("weaponDB为空，请检查代码执行顺序");
 

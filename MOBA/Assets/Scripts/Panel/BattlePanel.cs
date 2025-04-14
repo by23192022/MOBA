@@ -6,6 +6,11 @@ using UnityEngine.UI;
 public class BattlePanel : BasePanel {
 	//ctrl血条
 	private Slider healthSlider;
+	//FP准星
+	private Image crosshairImage;
+	private CameraFollow cameraFollow;
+	private Weapon CurrentWeapon;
+
 
 	public Slider GetHealthSlider() {
 		return healthSlider; // 虽然变量是private，但通过公共方法返回
@@ -22,6 +27,10 @@ public class BattlePanel : BasePanel {
 	public override void OnShow(params object[] args) {
 		//寻找组件
 		healthSlider = skin.transform.Find("HealthSlider").GetComponent<Slider>();
+		crosshairImage = skin.transform.Find("CrosshairImage").GetComponent<Image>();
+
+		cameraFollow = Camera.main.GetComponent<CameraFollow>();
+		CurrentWeapon = (Weapon)args[0];
 	}
 
 	//关闭
@@ -30,7 +39,12 @@ public class BattlePanel : BasePanel {
 	}
 
 	public void Update(){
+		if ( cameraFollow == null || CurrentWeapon == null ) return;
 
+		if ( !cameraFollow.isTP && CurrentWeapon.category == WeaponCategory.Ranged )
+			crosshairImage.gameObject.SetActive(true);
+		else
+			crosshairImage.gameObject.SetActive(false);
 	}
 
 }
