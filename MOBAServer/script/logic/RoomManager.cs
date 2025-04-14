@@ -52,15 +52,13 @@ public class RoomManager
 	}
 
 
-	/*
-	//Update
-	public static void Update(){
+    //战斗系统-战斗结束
+    //Update
+    public static void Update(){
 		foreach(Room room in rooms.Values){
 			room.Update();
 		}
 	}
-
-	*/
 
 }
 

@@ -73,7 +73,7 @@ class NetManager
 	//关闭连接
 	public static void Close(ClientState state){
 		//消息分发
-		MethodInfo mei =  typeof(EventHandler).GetMethod("OnDisconnect");
+		MethodInfo mei =  typeof(EventHandle).GetMethod("OnDisconnect");
 		object[] ob = {state};
 		mei.Invoke(null, ob);
 		//关闭
@@ -151,7 +151,10 @@ class NetManager
 		//分发消息
 		MethodInfo mi =  typeof(MsgHandler).GetMethod(protoName);
 		object[] o = {state, msgBase};
-		Console.WriteLine("Receive " + protoName);
+
+		if (protoName != "MsgSyncHuman")				//该协议收发频率较高，避免刷屏
+			Console.WriteLine("Receive " + protoName);
+
 		if(mi != null){
 			mi.Invoke(null, o);
 		}
@@ -199,7 +202,7 @@ class NetManager
 	//定时器
 	static void Timer(){
 		//消息分发
-		MethodInfo mei =  typeof(EventHandler).GetMethod("OnTimer");
+		MethodInfo mei =  typeof(EventHandle).GetMethod("OnTimer");
 		object[] ob = {};
 		mei.Invoke(null, ob);
 	}

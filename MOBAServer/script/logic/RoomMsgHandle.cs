@@ -86,12 +86,10 @@ public partial class MsgHandler {
 
 		Room room = RoomManager.GetRoom(player.roomId);
 		if(room == null){
-            Console.WriteLine("正在发送MsgGetRoomInfo，但协议内容为空");
             player.Send(msg);
 			return;
 		}
 
-        Console.WriteLine("正在发送MsgGetRoomInfo");
         player.Send(room.ToMsg());
 	}
 
@@ -114,10 +112,10 @@ public partial class MsgHandler {
 		player.Send(msg);
 	}
 
-	/*
 
-	//请求开始战斗
-	public static void MsgStartBattle(ClientState c, MsgBase msgBase){
+    //战斗系统-开战
+    //请求开始战斗
+    public static void MsgStartBattle(ClientState c, MsgBase msgBase){
 		MsgStartBattle msg = (MsgStartBattle)msgBase;
 		Player player = c.player;
 		if(player == null) return;
@@ -144,7 +142,7 @@ public partial class MsgHandler {
 		msg.result = 0;
 		player.Send(msg);
 	}
-	*/
+	
 
 
 }
