@@ -11,11 +11,11 @@ public class CameraFollow : MonoBehaviour
     public float sensitivity = 100f;    // 鼠标灵敏度
     private float xRotation = 0f;       // 垂直旋转角度
 
-    private ViewAndWeaponConfig config;
+    private ViewConfig config;
 
     void Start()
     {
-        config = GetComponent<ViewAndWeaponConfig>();
+        config = GetComponent<ViewConfig>();
     }
 
     void LateUpdate()

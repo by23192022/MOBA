@@ -6,18 +6,21 @@ public class SimpleCrosshair : MonoBehaviour
     public float crosshairSize = 20f;   // 准星大小
 
     private CameraFollow cameraController;
-    private ViewAndWeaponConfig config;
+    private Weapon CurrentWeapon;
 
-    void Start()
+    ////在ViewConfig.cs的setFPView里调用
+    public void Init(Weapon currentWeapon)
     {
         cameraController = Camera.main.GetComponent<CameraFollow>();
-        config = Camera.main.GetComponent<ViewAndWeaponConfig>();
+        CurrentWeapon = currentWeapon;
     }
 
     void OnGUI()
     {
+        if (CurrentWeapon ==null) return;
+
         if (!cameraController.isTP && 
-            config.CurrentWeapon.category == WeaponCategory.Ranged )
+            CurrentWeapon.category == WeaponCategory.Ranged )
         {
             // 计算准星位置（屏幕中心）
             float x = (Screen.width - crosshairSize) * 0.5f;
