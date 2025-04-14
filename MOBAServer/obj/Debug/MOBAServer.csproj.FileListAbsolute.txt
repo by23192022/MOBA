@@ -1,0 +1,9 @@
+C:\Users\Administrator\Desktop\GithubMOBA\MOBA\MOBAServer\obj\Debug\MOBAServer.csproj.AssemblyReference.cache
+C:\Users\Administrator\Desktop\GithubMOBA\MOBA\MOBAServer\obj\Debug\MOBAServer.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\GithubMOBA\MOBA\MOBAServer\bin\Debug\MOBAServer.exe.config
+C:\Users\Administrator\Desktop\GithubMOBA\MOBA\MOBAServer\bin\Debug\MOBAServer.exe
+C:\Users\Administrator\Desktop\GithubMOBA\MOBA\MOBAServer\bin\Debug\MOBAServer.pdb
+C:\Users\Administrator\Desktop\GithubMOBA\MOBA\MOBAServer\bin\Debug\MySql.Data.dll
+C:\Users\Administrator\Desktop\GithubMOBA\MOBA\MOBAServer\obj\Debug\MOBAServer.csproj.Up2Date
+C:\Users\Administrator\Desktop\GithubMOBA\MOBA\MOBAServer\obj\Debug\MOBAServer.exe
+C:\Users\Administrator\Desktop\GithubMOBA\MOBA\MOBAServer\obj\Debug\MOBAServer.pdb
