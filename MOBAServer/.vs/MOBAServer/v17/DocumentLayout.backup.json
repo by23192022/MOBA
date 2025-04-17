@@ -3,8 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\Administrator\\Desktop\\GithubMOBA\\MOBA\\MOBAServer\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{EEE1B7AA-259A-4176-A361-4000F8850A3C}|MOBAServer.csproj|c:\\users\\administrator\\desktop\\githubmoba\\moba\\mobaserver\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{EEE1B7AA-259A-4176-A361-4000F8850A3C}|MOBAServer.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{EEE1B7AA-259A-4176-A361-4000F8850A3C}|MOBAServer.csproj|C:\\Users\\Administrator\\Desktop\\GithubMOBA\\MOBA\\MOBAServer\\script\\logic\\syncmsghandle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EEE1B7AA-259A-4176-A361-4000F8850A3C}|MOBAServer.csproj|solutionrelative:script\\logic\\syncmsghandle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EEE1B7AA-259A-4176-A361-4000F8850A3C}|MOBAServer.csproj|c:\\users\\administrator\\desktop\\githubmoba\\moba\\mobaserver\\script\\logic\\room.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EEE1B7AA-259A-4176-A361-4000F8850A3C}|MOBAServer.csproj|solutionrelative:script\\logic\\room.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,19 +18,32 @@
       "DocumentGroups": [
         {
           "DockedWidth": 223,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Administrator\\Desktop\\GithubMOBA\\MOBA\\MOBAServer\\Program.cs",
-              "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\Users\\Administrator\\Desktop\\GithubMOBA\\MOBA\\MOBAServer\\Program.cs",
-              "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAADwvxEAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "Room.cs",
+              "DocumentMoniker": "C:\\Users\\Administrator\\Desktop\\GithubMOBA\\MOBA\\MOBAServer\\script\\logic\\Room.cs",
+              "RelativeDocumentMoniker": "script\\logic\\Room.cs",
+              "ToolTip": "C:\\Users\\Administrator\\Desktop\\GithubMOBA\\MOBA\\MOBAServer\\script\\logic\\Room.cs",
+              "RelativeToolTip": "script\\logic\\Room.cs",
+              "ViewState": "AgIAAIQAAAAAAAAAAAAowJcAAABIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-14T10:30:38.876Z",
+              "WhenOpened": "2025-04-17T15:01:24.924Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SyncMsgHandle.cs",
+              "DocumentMoniker": "C:\\Users\\Administrator\\Desktop\\GithubMOBA\\MOBA\\MOBAServer\\script\\logic\\SyncMsgHandle.cs",
+              "RelativeDocumentMoniker": "script\\logic\\SyncMsgHandle.cs",
+              "ToolTip": "C:\\Users\\Administrator\\Desktop\\GithubMOBA\\MOBA\\MOBAServer\\script\\logic\\SyncMsgHandle.cs",
+              "RelativeToolTip": "script\\logic\\SyncMsgHandle.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAQwBwAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-17T14:06:55.001Z",
               "EditorCaption": ""
             }
           ]
