@@ -38,15 +38,32 @@ public class PlayerController : BaseHuman
         if(Time.time - lastSendSyncTime < syncInterval){
             return;
         }
+
+        // 计算当前位置和旋转
+        Vector3 pos = transform.position;
+        Vector3 rot = transform.eulerAngles;
+        // 计算位置和旋转变化量
+        bool posChanged = Vector3.Distance(pos, lastPos) > posThreshold;
+        bool rotChanged = Quaternion.Angle(Quaternion.Euler(rot), Quaternion.Euler(lastRot)) > rotThreshold;
+        // 无变化则不用发送同步协议
+        if (!posChanged && !rotChanged)
+        {
+            return;
+        }
+        
+        //更新变量
+        lastPos = pos; 
+        lastRot = rot;
         lastSendSyncTime = Time.time;
+
         //发送同步协议
         MsgSyncHuman msg = new MsgSyncHuman();
-        msg.x = transform.position.x;
-        msg.y = transform.position.y;
-        msg.z = transform.position.z;
-        msg.ex = transform.eulerAngles.x;
-        msg.ey = transform.eulerAngles.y;
-        msg.ez = transform.eulerAngles.z;
+        msg.x = pos.x;
+        msg.y = pos.y;
+        msg.z = pos.z;
+        msg.ex = rot.x;
+        msg.ey = rot.y;
+        msg.ez = rot.z;
         NetManager.Send(msg);
     }
 

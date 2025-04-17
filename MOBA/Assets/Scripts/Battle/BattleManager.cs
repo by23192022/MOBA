@@ -167,6 +167,7 @@ public class BattleManager {
 		Camera mainCamera = Camera.main;
 		CameraFollow cf = mainCamera.GetComponent<CameraFollow>(); 
 		cf.target = transform;		//设置target变量的值
+		cf.isTP = true;			//设置初始视角为第三人称视角
 	}
 
 	//产生武器

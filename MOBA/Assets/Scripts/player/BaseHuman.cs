@@ -11,7 +11,12 @@ public class BaseHuman : MonoBehaviour {
     public float moveSpeed = 3f;     	// 恒定移动速度
     public float rotationSpeed = 10f; 	// 转向速度
 
-    private Vector3 lastPosition;
+    //子类调用
+    public Vector3 lastPos;		//最近⼀次收到的位置信息
+    public Vector3 lastRot;	
+    public float posThreshold = 0.1f;    	// 位置变化阈值0.001f
+    public float rotThreshold = 1f;      	// 旋转变化阈值（角度）0.1f
+
     private Vector3 currentVelocity; 	// Vector3 类型
     public float currentSpeed { get; private set; } // 外部只读
 
@@ -43,7 +48,9 @@ public class BaseHuman : MonoBehaviour {
 
     void Start () 
     {
-        lastPosition = transform.position; // 初始化上一帧位置，避免第一帧计算出错
+        //初始化位置和旋转
+        lastPos = transform.position; 
+        lastRot = transform.eulerAngles;
 
 /*
         if(weaponDB == null)
@@ -60,14 +67,14 @@ public class BaseHuman : MonoBehaviour {
     void CalculateSpeed()
     {
         // 计算位移差（Vector3）
-        Vector3 displacement = transform.position - lastPosition;
+        Vector3 displacement = transform.position - lastPos;
         currentVelocity = displacement / Time.deltaTime;
 
         // 计算水平速度标量值（忽略Y轴高度变化）
         currentSpeed = new Vector3(currentVelocity.x, 0, currentVelocity.z).magnitude;
 
         // 记录上一帧位置
-        lastPosition = transform.position;
+        lastPos = transform.position;
 
         //Debug.Log($"1)当前速度: {currentSpeed}");
     }

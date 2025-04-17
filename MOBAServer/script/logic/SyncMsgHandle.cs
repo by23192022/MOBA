@@ -14,17 +14,22 @@ public partial class MsgHandler {
 			return;
 		}
 		//status
-		if(room.status != Room.Status.FIGHT){
+		if(room.status != Room.Status.FIGHT)
+        {
 			return;
 		}
         //是否作弊(两次同步信息的位置相差太⼤)
-        if (Math.Abs(player.x - msg.x) > 10 ||
+        if (NetManager.GetTimeStamp() - room.lastjudgeTime >= 5 && (
+			Math.Abs(player.x - msg.x) > 10 ||
 			Math.Abs(player.y - msg.y) > 10 ||
-			Math.Abs(player.z - msg.z) > 10){
+			Math.Abs(player.z - msg.z) > 10)){
 			Console.WriteLine("疑似作弊 " + player.id);
 		}
-		//更新信息
-		player.x = msg.x;
+        //NetManager.GetTimeStamp() - room.lastjudgeTime >= 5
+        //游戏开始5s内跳过检测，避免因初始位置跳变误报
+
+        //更新信息
+        player.x = msg.x;
 		player.y = msg.y;
 		player.z = msg.z;
 		player.ex = msg.ex;

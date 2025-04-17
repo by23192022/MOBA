@@ -152,8 +152,8 @@ class NetManager
 		MethodInfo mi =  typeof(MsgHandler).GetMethod(protoName);
 		object[] o = {state, msgBase};
 
-		if (protoName != "MsgSyncHuman")				//该协议收发频率较高，避免刷屏
-			Console.WriteLine("Receive " + protoName);
+        //（已处理）if (protoName != "MsgSyncHuman")				//该协议收发频率较高，避免刷屏
+		Console.WriteLine("Receive " + protoName);
 
 		if(mi != null){
 			mi.Invoke(null, o);

@@ -36,7 +36,8 @@ public class Room
 		},
     };
     //上一次判断结果的时间
-    private long lastjudgeTime = 0;
+    public long lastjudgeTime { get; private set; } = 0;
+
 
 
     //房间系统
@@ -147,7 +148,8 @@ public class Room
         if (status == Status.FIGHT)
         {
             player.data.lost++;     //失败
-            player.data.grade--;    
+            player.data.grade--;
+            if (player.data.grade < 0) player.data.grade = 0;   //等级不为负值
             MsgLeaveBattle msg = new MsgLeaveBattle();
             msg.id = player.id;
             Broadcast(msg);
@@ -321,6 +323,10 @@ public class Room
         status = Status.FIGHT;
         //玩家战斗属性
         ResetPlayers();
+
+        //初始化lastjudgeTime为战斗开始时间
+        lastjudgeTime = NetManager.GetTimeStamp();
+
         //返回数据
         MsgEnterBattle msg = new MsgEnterBattle();
         msg.mapId = 1;
@@ -379,7 +385,7 @@ public class Room
         {
             return;
         }
-        //时间判断
+        //时间判断（每10秒调⽤⼀次Judgment⽅法）
         if (NetManager.GetTimeStamp() - lastjudgeTime < 10f)
         {
             return;
@@ -407,6 +413,7 @@ public class Room
             {
                 player.data.lost++;
                 player.data.grade--;
+                if (player.data.grade < 0) player.data.grade = 0;   //等级不为负值
             }
         }
         //发送Result
